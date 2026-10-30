@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Arquivos gerados durante auditorias e testes locais
+coleta*.json
+findings*.json
+raio-x-*.html
+raio-x-*.md
