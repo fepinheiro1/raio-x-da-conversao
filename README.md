@@ -2,7 +2,7 @@
 
 **Auditoria gratuita de conversão para sua loja virtual — feita por IA, rodando 100% na sua máquina.**
 
-Você dá a URL da sua loja. A IA navega como um cliente de verdade — home, categoria, produto, busca, carrinho e checkout, no computador e no celular — testa sua busca interna com consultas reais, mede velocidade e entrega um relatório com as 5 prioridades para vender mais com o tráfego que você já tem.
+Você dá a URL da sua loja. A IA navega como um cliente de verdade — home, categoria, produto, busca, carrinho e checkout, no computador e no celular — testa sua busca interna com consultas reais, mede velocidade e entrega um cartão com as 3 prioridades para vender mais com o tráfego que você já tem. A análise profunda, quando solicitada, entrega 5 prioridades e anexo técnico.
 
 Uma iniciativa [Performa.AI](https://performa.ai). Sem cadastro, sem coleta de dados, sem pegadinha: seus dados não saem do seu computador.
 
@@ -17,7 +17,50 @@ Uma iniciativa [Performa.AI](https://performa.ai). Sem cadastro, sem coleta de d
 
 ## Como instalar
 
-### Claude Code (recomendado)
+### Codex
+
+No Codex, envie esta mensagem:
+
+> **Instale a skill deste repositório: https://github.com/fepinheiro1/raio-x-da-conversao**
+
+Depois que o Codex confirmar a instalação, abra uma nova conversa e envie:
+
+> **Use $raio-x-conversao para fazer o raio-x da minha loja: https://minhaloja.com.br**
+
+Para instalar manualmente como skill global — disponível em qualquer projeto — use:
+
+```bash
+mkdir -p ~/.agents/skills
+git clone https://github.com/fepinheiro1/raio-x-da-conversao.git ~/.agents/skills/raio-x-conversao
+```
+
+Para atualizar uma instalação manual existente:
+
+```bash
+git -C ~/.agents/skills/raio-x-conversao pull
+```
+
+O Codex também consegue descobrir a skill automaticamente quando o pedido combina com ela. Exemplos:
+
+- `Faça o raio-x da loja https://minhaloja.com.br`
+- `Por que meu e-commerce não vende? Analise https://minhaloja.com.br`
+- `Faça uma análise profunda da loja https://minhaloja.com.br`
+
+### O que acontece na primeira utilização
+
+A instalação não inicia uma auditoria sozinha. Na primeira vez que a skill for usada, o agente:
+
+1. Explica rapidamente o que será testado, o tempo estimado e o que será entregue.
+2. Confirma a URL da loja, caso ela ainda não tenha sido informada.
+3. Pergunta qual produto ou categoria é mais importante e qual dor a loja já sente.
+4. No modo profundo, pergunta também de onde vem a maior parte do tráfego.
+5. Começa a auditoria assim que receber as respostas. Se a pessoa não souber alguma delas, a análise continua mesmo assim.
+
+A primeira mensagem deve ser parecida com esta:
+
+> Vou fazer o Raio-X de Conversão em modo rápido. Em cerca de 5 minutos vou testar entrada, busca, página de produto, carrinho, checkout e confiança — sem finalizar nenhuma compra. No final você recebe uma nota geral e 3 prioridades. Para personalizar: qual produto ou categoria mais importa vender e qual dor você já percebe hoje?
+
+### Claude Code
 
 1. Copie a pasta `raio-x-conversao` para `~/.claude/skills/` (crie a pasta se não existir):
    ```bash
@@ -30,7 +73,7 @@ Uma iniciativa [Performa.AI](https://performa.ai). Sem cadastro, sem coleta de d
 
 Compacte a pasta `raio-x-conversao` em um `.zip`, envie nas configurações de skills (Configurações → Capacidades/Skills) e peça o raio-x da sua loja.
 
-### Codex / Cursor / outros agentes
+### Cursor e outros agentes
 
 A pasta contém um `AGENTS.md`. Abra a pasta no seu agente e peça:
 > **"Siga as instruções do AGENTS.md e faça o raio-x da loja minhaloja.com.br"**

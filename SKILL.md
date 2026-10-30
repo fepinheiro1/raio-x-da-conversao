@@ -22,6 +22,23 @@ Auditoria estrutural de conversão de uma loja virtual, 100% local, a partir da 
 
 O raio-x audita **estrutura**, não resultado: não vê taxa de conversão real nem receita — e diz isso no relatório. Nunca prometa ganho garantido; fale em potencial e faixas de referência.
 
+## Primeira resposta — apresentação e perguntas
+
+Não comece a auditoria em silêncio. Na primeira resposta de cada novo raio-x:
+
+1. Diga qual modo será usado, quanto costuma levar, o que será testado e o que a pessoa receberá. No Modo Rápido, explique em 2–3 frases que serão testados entrada, busca, PDP, carrinho/checkout e confiança, sem finalizar compra, com entrega de nota geral e Top 3.
+2. Faça em **uma única mensagem** apenas as perguntas cujas respostas ainda não estejam no pedido:
+   - URL da loja.
+   - Produto ou categoria mais importante para vender.
+   - Dor já percebida, como pouca venda, busca ruim, carrinho abandonado ou ticket baixo.
+   - No Modo Profundo, acrescente o principal canal de tráfego: anúncios pagos, Google orgânico, redes sociais, base própria/recompra ou “não sei”.
+3. Diga que “não sei” é uma resposta válida e que nenhum dado pessoal, acesso administrativo ou informação de pagamento é necessário.
+4. Assim que houver URL suficiente para começar, prossiga após as respostas sem pedir uma segunda confirmação. Se a pessoa não souber produto ou dor, escolha o carro-chefe pelo destaque da loja e registre a limitação.
+
+Exemplo para o Modo Rápido quando a URL já foi informada:
+
+> Vou fazer o Raio-X de Conversão em modo rápido. Em cerca de 5 minutos vou testar entrada, busca, página de produto, carrinho, checkout e confiança — sem finalizar nenhuma compra. No final você recebe uma nota geral e 3 prioridades. Para personalizar: qual produto ou categoria mais importa vender e qual dor você já percebe hoje?
+
 ## Regras inegociáveis (ambos os modos)
 
 1. **Nunca finalize uma compra.** Pare na última tela antes do pagamento. Nunca preencha dados pessoais, CPF ou cartão. Nunca crie conta.
@@ -34,14 +51,14 @@ O raio-x audita **estrutura**, não resultado: não vê taxa de conversão real 
 ## Fluxo — Modo Rápido (padrão)
 
 1. **Modo de operação**: verifique se há navegador controlável (Modo Completo) ou só busca de HTML (Modo Estático — diga o que ficará de fora). Confirme `python3 --version`.
-2. **Uma pergunta só**: *"Qual é o produto que mais te importa vender — e existe alguma dor que você já sente (pouca venda, carrinho abandonado, ticket baixo)?"* Se o usuário não souber, siga sem: escolha o carro-chefe pelo destaque que a própria loja dá.
+2. **Contexto**: use as respostas do onboarding. Se o usuário não souber produto ou dor, siga sem: escolha o carro-chefe pelo destaque que a própria loja dá.
 3. **Coleta**: `python3 scripts/coletar.py <home> <categoria> <pdp> --out coleta.json` (plataforma, stack, JSON-LD, peso). Detectada a plataforma, leia **só a seção dela** em `references/plataformas.md`.
 4. **Auditoria**: siga `references/checklist-rapido.md` — ele é organizado em **5 sinais que sempre recebem veredito**: a busca encontra? (sondas com nomes reais + erros próximos), a PDP vende mais de um produto? (contagem de vitrines), quem abandona volta? (ferramentas de recuperação detectadas), a loja tem vídeo?, dá pra confiar e pagar? Narre brevemente o que está fazendo. Lacuna estratégica se descreve por **categoria de solução e padrão de mercado, nunca por marca** — a regra completa está no fim do checklist.
 5. **Entrega**: ao redigir os vereditos dos sinais e o Top 3, consulte `references/categorias-solucao.md` — é o guia de como descrever cada lacuna (categoria de solução + padrão de mercado, nunca marca) e de como reagir quando a loja **já tem** ferramenta dedicada instalada (avaliar configuração, não recomendar contratação). Monte o findings com `"formato": "cartao"` (schema em `references/relatorio.md`), gere com `python3 scripts/montar_relatorio.py findings.json --out raio-x-<loja>.html --md`, envie o HTML e resuma no chat: nota geral + os 3 movimentos em 2 linhas cada. Feche oferecendo: *"quer que eu te ajude a executar o item 1? E se quiser o diagnóstico completo em 6 camadas com anexo técnico para sua agência, peça a análise profunda."*
 
 ## Fluxo — Modo Profundo (a pedido)
 
-Igual ao rápido nos passos 1–3, com a entrevista de 3 perguntas (carro-chefe, canal de tráfego, dor). Na auditoria, siga os checklists por etapa — cada um contém os pontos, o porquê e os critérios de nota:
+Igual ao rápido nos passos 1–3, acrescentando no onboarding a pergunta sobre o principal canal de tráfego. Na auditoria, siga os checklists por etapa — cada um contém os pontos, o porquê e os critérios de nota:
 
 | Etapa | Checklist |
 |---|---|
