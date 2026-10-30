@@ -1,7 +1,7 @@
 interface:
   display_name: "Raio-X de Conversão"
   short_description: "Auditoria prática de conversão para e-commerce"
-  default_prompt: "Use $raio-x-conversao para explicar como funciona e iniciar o raio-x da minha loja."
+  default_prompt: "Use $raio-x-conversao para verificar os requisitos, explicar como funciona e iniciar o raio-x da minha loja."
 
 policy:
   allow_implicit_invocation: true

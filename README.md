@@ -21,7 +21,7 @@ Uma iniciativa [Performa.AI](https://performa.ai). Sem cadastro, sem coleta de d
 
 No Codex, envie esta mensagem:
 
-> **Instale a skill deste repositório: https://github.com/fepinheiro1/raio-x-da-conversao**
+> **Instale a skill deste repositório: https://github.com/fepinheiro1/raio-x-da-conversao. Depois da instalação, verifique os requisitos locais e me diga o que está disponível, o que está faltando e o que é opcional. Não instale nenhum recurso sem pedir minha autorização.**
 
 Depois que o Codex confirmar a instalação, abra uma nova conversa e envie:
 
@@ -32,6 +32,12 @@ Para instalar manualmente como skill global — disponível em qualquer projeto 
 ```bash
 mkdir -p ~/.agents/skills
 git clone https://github.com/fepinheiro1/raio-x-da-conversao.git ~/.agents/skills/raio-x-conversao
+```
+
+Depois, confira os requisitos locais sem instalar nada:
+
+```bash
+python3 ~/.agents/skills/raio-x-conversao/scripts/preflight.py --output-dir .
 ```
 
 Para atualizar uma instalação manual existente:
@@ -54,7 +60,9 @@ A instalação não inicia uma auditoria sozinha. Na primeira vez que a skill fo
 2. Confirma a URL da loja, caso ela ainda não tenha sido informada.
 3. Pergunta qual produto ou categoria é mais importante e qual dor a loja já sente.
 4. No modo profundo, pergunta também de onde vem a maior parte do tráfego.
-5. Começa a auditoria assim que receber as respostas. Se a pessoa não souber alguma delas, a análise continua mesmo assim.
+5. Faz um pré-check de Python, acesso à loja, pasta de saída e navegador controlável.
+6. Informa o que está disponível, o que falta e o que é opcional. Nada é instalado sem autorização explícita.
+7. Começa a auditoria assim que receber as respostas. Se a pessoa não souber alguma delas, a análise continua mesmo assim.
 
 A primeira mensagem deve ser parecida com esta:
 
@@ -80,8 +88,23 @@ A pasta contém um `AGENTS.md`. Abra a pasta no seu agente e peça:
 
 ## Requisitos
 
-- Python 3.8+ (já vem no Mac/Linux; no Windows, [python.org](https://python.org)) — os scripts não instalam nada
-- Melhor experiência: agente com navegador integrado (percurso completo até o checkout). Sem navegador, a análise roda em modo estático e avisa o que ficou de fora.
+### Obrigatórios
+
+- Python 3.8+ — os scripts usam apenas a biblioteca padrão; não há pacotes `pip`.
+- Acesso HTTPS à loja que será analisada.
+- Uma pasta em que o Codex possa gravar o relatório.
+
+### Para o Modo Completo
+
+- Navegador controlável com screenshots e viewport mobile. Sem esse recurso, a análise roda em Modo Estático e avisa claramente o que não pôde testar.
+
+### Opcional
+
+- Acesso à API pública do PageSpeed Insights. A skill avisa antes de usar.
+
+Não são necessários Node.js, npm, banco de dados, login administrativo da loja, CPF, cartão ou chave de API.
+
+Antes de começar, a skill executa um pré-check. Se faltar algo essencial, o Codex deve explicar o motivo e pedir autorização antes de instalar ou alterar qualquer recurso.
 
 ## Perguntas frequentes
 

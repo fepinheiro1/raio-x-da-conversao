@@ -39,6 +39,18 @@ Exemplo para o Modo Rápido quando a URL já foi informada:
 
 > Vou fazer o Raio-X de Conversão em modo rápido. Em cerca de 5 minutos vou testar entrada, busca, página de produto, carrinho, checkout e confiança — sem finalizar nenhuma compra. No final você recebe uma nota geral e 3 prioridades. Para personalizar: qual produto ou categoria mais importa vender e qual dor você já percebe hoje?
 
+## Pré-check de recursos e autorização
+
+Assim que a URL estiver disponível e antes de navegar, leia `references/requisitos.md`. Verifique as ferramentas do ambiente, confirme `python3 --version` e, quando Python existir, execute:
+
+```bash
+python3 scripts/preflight.py --url <URL_DA_LOJA> --output-dir <PASTA_DE_SAIDA> --json
+```
+
+Informe ao usuário, de forma breve, o que está disponível, o que está ausente ou bloqueado e o que é opcional. O Modo Completo requer navegador controlável com screenshot e viewport mobile; sem ele, ofereça o Modo Estático e diga exatamente o que não será verificado.
+
+**Nunca instale dependências, navegador, plugin ou pacote silenciosamente.** Se faltar um recurso essencial, explique por que ele é necessário, apresente a ação ou comando proposto e peça autorização explícita antes de instalar. Não peça instalação de Node, npm ou pacotes `pip`: os scripts usam apenas a biblioteca padrão do Python. PageSpeed é opcional e exige aviso antes da chamada externa.
+
 ## Regras inegociáveis (ambos os modos)
 
 1. **Nunca finalize uma compra.** Pare na última tela antes do pagamento. Nunca preencha dados pessoais, CPF ou cartão. Nunca crie conta.
@@ -50,7 +62,7 @@ Exemplo para o Modo Rápido quando a URL já foi informada:
 
 ## Fluxo — Modo Rápido (padrão)
 
-1. **Modo de operação**: verifique se há navegador controlável (Modo Completo) ou só busca de HTML (Modo Estático — diga o que ficará de fora). Confirme `python3 --version`.
+1. **Modo de operação**: execute o pré-check de recursos, verifique se há navegador controlável (Modo Completo) ou só busca de HTML (Modo Estático) e diga o que ficará de fora.
 2. **Contexto**: use as respostas do onboarding. Se o usuário não souber produto ou dor, siga sem: escolha o carro-chefe pelo destaque que a própria loja dá.
 3. **Coleta**: `python3 scripts/coletar.py <home> <categoria> <pdp> --out coleta.json` (plataforma, stack, JSON-LD, peso). Detectada a plataforma, leia **só a seção dela** em `references/plataformas.md`.
 4. **Auditoria**: siga `references/checklist-rapido.md` — ele é organizado em **5 sinais que sempre recebem veredito**: a busca encontra? (sondas com nomes reais + erros próximos), a PDP vende mais de um produto? (contagem de vitrines), quem abandona volta? (ferramentas de recuperação detectadas), a loja tem vídeo?, dá pra confiar e pagar? Narre brevemente o que está fazendo. Lacuna estratégica se descreve por **categoria de solução e padrão de mercado, nunca por marca** — a regra completa está no fim do checklist.
@@ -94,10 +106,12 @@ Consolide com `references/relatorio.md` (schema completo, notas por camada, prio
 | Arquivo | Quando ler |
 |---|---|
 | `references/checklist-rapido.md` | Modo Rápido — a auditoria inteira em um arquivo |
+| `references/requisitos.md` | Antes da primeira auditoria em cada ambiente — pré-check e autorização |
 | `references/checklist-entrada.md` … `checklist-mobile-confianca.md` | Modo Profundo, por etapa |
 | `references/categorias-solucao.md` | Ao redigir achados e vereditos — como descrever cada lacuna sem citar marca |
 | `references/benchmarks-br.md` | Ao ancorar potenciais (ambos os modos) |
 | `references/plataformas.md` | Assim que a plataforma for detectada (só a seção dela) |
 | `references/relatorio.md` | Antes de montar o findings.json (tem os dois schemas) |
 | `scripts/coletar.py` | Coleta técnica de qualquer URL |
+| `scripts/preflight.py` | Verifica Python, escrita e acesso à loja sem instalar nada |
 | `scripts/montar_relatorio.py` | Gera cartão (`"formato": "cartao"`) ou relatório completo |
